@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HotelReservation.Dal\HotelReservation.DAL.csproj" />
+    <ProjectReference Include="..\HotelReservation.MODEL\HotelReservation.MODEL.csproj" />
+  </ItemGroup>
+
+</Project>

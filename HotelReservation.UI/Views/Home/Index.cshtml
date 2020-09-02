@@ -1,0 +1,98 @@
+﻿@{
+    ViewData["Title"] = "Otel Rezervasyon Web Uygulaması";
+}
+
+@using HotelReservation.MODEL.Entities
+@model TempRoom
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card card-default">
+            <div class="card-header">
+                <h5 class="card-title">Seçim Yapın</h5>
+            </div>
+            <form role="form" asp-controller="Home" enctype="multipart/form-data" asp-action="RoomSearch" method="post">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="date ">Giriş Tarihi </label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control" name="EntyDate" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Lütfen Giriş Tarihi Seçin
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="date">Çıkış Tarihi </label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control" name="ReleaseDate" required>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Lütfen Çıkış Tarihi Seçin
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="date ">Kişi Sayısı </label>
+                                <select class="custom-select d-block w-100" id="GuestCount" name="GuestCount" required>
+                                    <option value="">Seçin...</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Lütfen Kişi Sayısı Seçin
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label> </label>
+                                <div class="input-group">
+
+                                    <button class="btn btn-dark btn-lg btn-block" type="submit" name="Search">Ara</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="card-footer">             
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts
+{
+    <script>
+        Date.prototype.addDays = function (days) {
+            var date = new Date(this.valueOf());
+            date.setDate(date.getDate() + days);
+            return date;
+        }
+
+        $(document).ready(function () {
+            $('form [type="date"]:first').on('change', function () {
+                var $entryDate = $(this);
+                var date = new Date($entryDate.val()).addDays(1);
+                var ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date)
+                var mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(date)
+                var da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date)
+                var formatDate = `${ye}-${mo}-${da}`
+                $('form [type="date"]:not(:first)').attr('min', formatDate)
+            });
+        });
+    </script>
+}

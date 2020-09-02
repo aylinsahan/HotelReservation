@@ -1,0 +1,62 @@
+﻿@using HotelReservation.MODEL.Entities
+@model TempRoom
+@using (Html.BeginForm("ReservationAdd", "Home", FormMethod.Post)) //new { id = Model.Id },
+{
+    <div class="content">
+        <div class="container-fluid">
+            <div class="card card-default">
+                <div>
+                    <div class="card-header">
+                        <h5 class="card-title">Oda Seç</h5>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-4 themed-grid-col">Giriş Tarihi : @Model.EntyDate.ToShortDateString() </div>
+                        <div class="col-md-4 themed-grid-col">Çıkış Tarihi : @Model.ReleaseDate.ToShortDateString()</div>
+                        <div class="col-md-4 themed-grid-col">Ziyaretçi Sayısı : @Model.GuestCount</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-10 themed-grid-col">
+                            <input type="hidden" name="@Model.Id" id="hdnId" value="@Model.Id" />
+                            <div class="pb-3">
+                                <label id="lblDescription"> @Model.Description </label>  <br />
+                                <label id="lblDescription2"> @Model.Description2 </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 themed-grid-col"> <label id="lblNumberOfNight"> @Model.NumberOfNight Gece </label>  </div>
+                                <div class="col-md-6 themed-grid-col"> <b> <label id="lblTotalPrice">   Tutar :  @Model.TotalPrice </label> </b></div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-2 themed-grid-col">
+                            <button class="btn btn-dark btn-lg btn-block" type="submit" id="btnSave" name="Save">Seç</button>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts
+{
+    @if (TempData["ReservationResult"] != null)
+    {
+
+        @if (((bool)TempData["ReservationResult"]) == true)
+        {
+            <script>
+                alert('Rezervasyon Kaydedildi');
+            </script>
+        }
+        else
+        {
+            <script>
+                alert('Rezervasyon Kaydedilemedi');
+            </script>
+        }
+    }
+}
